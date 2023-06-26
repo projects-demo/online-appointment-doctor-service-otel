@@ -1,0 +1,20 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+exporters:
+  logging:
+  zipkin:
+    endpoint: "http://localhost:9411/api/v2/spans"
+    tls:
+      insecure: true
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [zipkin]
+#      processors: [nop]
+  telemetry:
+    logs:
+      level: "debug"
